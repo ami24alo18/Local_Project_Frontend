@@ -7,6 +7,7 @@ import CustomerList from './CustomerList';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import { useAuth, AuthProvider } from './AuthContext';
+import axios from 'axios';
 
 const AppContainer = styled.div`
   max-width: 800px;
@@ -40,8 +41,26 @@ const App = () => {
   const [customers, setCustomers] = useState([]);
   const { isAuthenticated, logout } = useAuth();
 
-  const addCustomer = (customer) => {
+  const addCustomer = async (customer) => {
     setCustomers([...customers, { id: Date.now(), ...customer }]);
+
+    try {
+      const response = await axios.post('http://localhost:1995/addCustomer', {
+        name: customer.name,
+        email: customer.email,
+        mobileNo: customer.mobileNo,
+        aadhaarNo: customer.aadhaarNo,
+        roomNo: customer.roomNo
+      });
+      if (response.data.success) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Error saving customer data: ', error);
+      return false;
+    }
   };
 
   const updateCustomer = (updatedCustomer) => {

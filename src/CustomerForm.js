@@ -31,13 +31,17 @@ const CustomerForm = ({ addCustomer }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNo, setMobileNo] = useState('');
+  const [aadhaarNo, setAadharNo] = useState('');
+  const [roomNo, setRoomNo] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addCustomer({ name, email, mobileNo });
+    addCustomer({ name, email, mobileNo, aadhaarNo, roomNo });
     setName('');
     setEmail('');
     setMobileNo('');
+    setAadharNo('');
+    setRoomNo('');
   };
 
   return (
@@ -62,6 +66,20 @@ const CustomerForm = ({ addCustomer }) => {
           placeholder="MobileNo"
           value={mobileNo}
           onChange={(e) => setMobileNo(e.target.value)}
+          required
+        />
+        <Input
+          type="number"
+          placeholder="AadharNo"
+          value={aadhaarNo}
+          onChange={(e) => setAadharNo(e.target.value)}
+          required
+        />
+        <Input
+          type="number"
+          placeholder="RoomNo"
+          value={roomNo}
+          onChange={(e) => setRoomNo(e.target.value)}
           required
         />
         <Button type="submit">Add Customer</Button>

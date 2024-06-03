@@ -47,21 +47,27 @@ const CustomerList = ({ customers, updateCustomer }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNo, setMobileNo] = useState('');
+  const [aadhaarNo, setAadharNo] = useState('');
+  const [roomNo, setRoomNo] = useState('');
 
   const startEditing = (customer) => {
     setEditingId(customer.id);
     setName(customer.name);
     setEmail(customer.email);
     setMobileNo(customer.mobileNo);
+    setAadharNo(customer.aadhaarNo);
+    setRoomNo(customer.roomNo);
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    updateCustomer({ id: editingId, name, email, mobileNo });
+    updateCustomer({ id: editingId, name, email, mobileNo, roomNo });
     setEditingId(null);
     setName('');
     setEmail('');
     setMobileNo('');
+    setAadharNo('');
+    setRoomNo('');
   };
 
   return (
@@ -72,6 +78,8 @@ const CustomerList = ({ customers, updateCustomer }) => {
             <Th>Name</Th>
             <Th>Email</Th>
             <Th>Mobile No</Th>
+            <Th>Aadhar No</Th>
+            <Th>Room No</Th>
             <Th>Actions</Th>
           </tr>
         </thead>
@@ -111,6 +119,26 @@ const CustomerList = ({ customers, updateCustomer }) => {
                     </form>
                   </Td>
                   <Td>
+                    <form onSubmit={handleUpdate}>
+                      <Input
+                        type="aadharNo"
+                        value={aadhaarNo}
+                        onChange={(e) => setAadharNo(e.target.value)}
+                        required
+                      />
+                    </form>
+                  </Td>
+                  <Td>
+                    <form onSubmit={handleUpdate}>
+                      <Input
+                        type="roomNo"
+                        value={roomNo}
+                        onChange={(e) => setRoomNo(e.target.value)}
+                        required
+                      />
+                    </form>
+                  </Td>
+                  <Td>
                     <Button onClick={handleUpdate}>Update</Button>
                   </Td>
                 </>
@@ -119,6 +147,8 @@ const CustomerList = ({ customers, updateCustomer }) => {
                   <Td>{customer.name}</Td>
                   <Td>{customer.email}</Td>
                   <Td>{customer.mobileNo}</Td>
+                  <Td>{customer.aadhaarNo}</Td>
+                  <Td>{customer.roomNo}</Td>
                   <Td>
                     <Button onClick={() => startEditing(customer)}>Edit</Button>
                   </Td>
